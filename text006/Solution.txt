@@ -1,0 +1,43 @@
+需要记录的信息有：当前编辑的文件的路径（无，文件），状态（无，修改）
+
+命令和状态转换
+
+None:
+	file = null
+	status = none
+New:
+	if confirmUnsave
+		file = null
+		status = none
+		text.clear
+Open:
+	if confirmUnsave
+		open
+		file = <file>
+		status = none
+		text.load
+Save:
+	if file == null
+		file = <choose new file path>
+	text.dump
+	status = none
+Edit:
+	status = unsave
+Exit:
+	if status = unsave
+		confirm
+	exit
+
+def function confirmUnsave() {
+	if file != null && status == unsave
+		confirmSave
+		if yes
+			save
+			return true
+		else if no
+			return true
+		else
+			return false
+	else
+		return true
+}
